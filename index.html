@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Aplicación para Staff</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://cdn.pixabay.com/photo/2017/08/30/03/22/space-2695564_960_720.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            overflow-x: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 40px;
+            text-align: center;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #81C784;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #81C784;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #333;
+            color: #fff;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #2e7d32;
+            outline: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .container-footer {
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        .container-footer a {
+            color: #81C784;
+            text-decoration: none;
+        }
+
+        .container-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>¡Únete al Equipo de Staff!</h1>
+    <h2>Formulario de Aplicación</h2>
+    <form id="staffForm">
+        <div class="form-section">
+            <label for="username">🌟 1. Nombre de Usuario en Discord:</label>
+            <input type="text" id="username" name="username" placeholder="Ejemplo: Usuario#1234" required>
+        </div>
+
+        <div class="form-section">
+            <label for="discordID">🔗 2. Tu ID de Discord:</label>
+            <input type="text" id="discordID" name="discordID" placeholder="Ejemplo: 123456789012345678" required>
+        </div>
+
+        <div class="form-section">
+            <label for="timezone">⏰ 3. Zona Horaria:</label>
+            <input type="text" id="timezone" name="timezone" placeholder="Ejemplo: UTC-3, UTC+1" required>
+        </div>
+
+        <div class="form-section">
+            <label for="hours">⌛ 4. Horas Disponibles por Día:</label>
+            <input type="text" id="hours" name="hours" placeholder="Ejemplo: 3-4 horas al día" required>
+        </div>
+
+        <div class="form-section">
+            <label for="otherTeams">🤝 5. ¿Eres parte de otros equipos de staff?</label>
+            <textarea id="otherTeams" name="otherTeams" placeholder="Si es así, menciona en qué servidores y tus roles" required></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="motivation">🔥 6. ¿Por qué quieres ser parte del staff de este servidor?</label>
+            <textarea id="motivation" name="motivation" placeholder="Cuéntanos qué te motiva a unirte al equipo" required></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="contributions">💡 7. ¿Qué aportes podrías hacer al servidor?</label>
+            <textarea id="contributions" name="contributions" placeholder="Ideas, habilidades o características únicas que podrías ofrecer" required></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="experience">📜 8. ¿Tienes experiencia previa como staff?</label>
+            <textarea id="experience" name="experience" placeholder="Si es así, cuéntanos dónde y qué rol desempeñaste" required></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="role">⚙️ 9. ¿Qué tipo de rol te interesa?</label>
+            <select id="role" name="role" required>
+                <option value="Caza Allys">Caza Allys</option>
+                <option value="Alter">Alter</option>
+                <option value="Helper">Helper</option>
+            </select>
+        </div>
+
+        <button type="submit">Enviar Aplicación</button>
+    </form>
+</div>
+
+<div class="container-footer">
+    <p>¡Gracias por tu interés en unirte a nuestro equipo! Si tienes alguna pregunta, <a href="mailto:soporte@servidor.com">contáctanos aquí</a>.</p>
+</div>
+
+<script>
+    document.getElementById('staffForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        const formattedMention = `<@${data.discordID}>`;
+        const roleMention = `<@&1316487982827704420>`;
+
+        const webhookUrl = 'https://discord.com/api/webhooks/1317634399679807499/bOFoJc1lhmN-pnwcp8YjtjEB2xnrmFJwB0veehmtequzlP2pGsjQP0Dlz9-TGbFumoXj';
+
+        const embed = {
+            "content": roleMention,
+            "embeds": [{
+                "title": "Nueva Aplicación para Staff",
+                "color": 3066993,
+                "fields": [
+                    { "name": "🌟 1. Nombre de Usuario en Discord", "value": data.username, "inline": false },
+                    { "name": "🔗 2. ID de Discord", "value": formattedMention, "inline": false },
+                    { "name": "⏰ 3. Zona Horaria", "value": data.timezone, "inline": false },
+                    { "name": "⌛ 4. Horas Disponibles por Día", "value": data.hours, "inline": false },
+                    { "name": "🤝 5. ¿Eres parte de otros equipos de staff?", "value": data.otherTeams, "inline": false },
+                    { "name": "🔥 6. ¿Por qué quieres ser parte del staff de este servidor?", "value": data.motivation, "inline": false },
+                    { "name": "💡 7. ¿Qué aportes podrías hacer al servidor?", "value": data.contributions, "inline": false },
+                    { "name": "📜 8. ¿Tienes experiencia previa como staff?", "value": data.experience, "inline": false },
+                    { "name": "8. ¿Qué tipo de rol te interesa?", "value": data.role, "inline": false }
+                ]
+            }]
+        };
+
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(embed)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Formulario enviado con éxito!');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error al enviar el formulario.');
+        });
+    });
+</script>
+
+</body>
+</html>
+
